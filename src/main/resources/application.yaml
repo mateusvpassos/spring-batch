@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  sql:
+    init:
+      platform: postgresql
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/springbatch
+    username: postgres
+    password: 
+    jdbcUrl: ${spring.datasource.url}
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+  batch:
+    jdbc:
+      initialize-schema: always
