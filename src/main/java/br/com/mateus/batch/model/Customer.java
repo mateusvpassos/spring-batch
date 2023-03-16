@@ -3,8 +3,18 @@ package br.com.mateus.batch.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+@Entity(name = "Customer")
+@Table(name = "customer")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -32,90 +42,70 @@ public class Customer {
     @Column(name = "dob", nullable = true)
     private String dob;
 
-    public Customer() {
-
+    private Customer(Builder builder) {
+        this.id = builder.id;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.gender = builder.gender;
+        this.contactNo = builder.contactNo;
+        this.country = builder.country;
+        this.dob = builder.dob;
     }
 
-    public Customer(final long id, final String firstName, final String lastName,
-            final String email, final String gender, final String contactNo,
-            final String country, final String dob) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.gender = gender;
-        this.contactNo = contactNo;
-        this.country = country;
-        this.dob = dob;
+    public static class Builder {
+        private long id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String gender;
+        private String contactNo;
+        private String country;
+        private String dob;
+
+        public Builder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder gender(String gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder contactNo(String contactNo) {
+            this.contactNo = contactNo;
+            return this;
+        }
+
+        public Builder country(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder dob(String dob) {
+            this.dob = dob;
+            return this;
+        }
+
+        public Customer build() {
+            return new Customer(this);
+        }
     }
 
-    public Customer of(final long id, final String firstName, final String lastName,
-            final String email, final String gender, final String contactNo,
-            final String country, final String dob) {
-        return new Customer(id, firstName, lastName, email, gender, contactNo, country, dob);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
 }

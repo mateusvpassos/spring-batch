@@ -1,21 +1,24 @@
 package br.com.mateus.batch.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.mateus.batch.service.JobService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@RestController
-@RequestMapping("/jobs")
-public class JobController {
+@Tag(name = "Jobs")
+public interface JobController {
 
-    @Autowired
-    private JobService jobService;
-
-    @PostMapping("/importCustomers")
-    public void importCsvToDBJob() {
-        jobService.importCsvToDBJob();
-    }
+    @Operation(summary = "Import CSV to DB", description = "Import CSV to DB")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    void importCsvToDBJob();
 }
